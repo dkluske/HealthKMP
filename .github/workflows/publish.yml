@@ -29,9 +29,9 @@ jobs:
 
       - name: Publish Library
         run: |
-          echo "Publishing and Releasing $GITHUB_REF"
-          ./gradlew publish -Pversion=$GITHUB_REF
-          echo "Published and Released $GITHUB_REF"
+          echo "Publishing and Releasing $GITHUB_REF_NAME"
+          ./gradlew publish -Pversion=$GITHUB_REF_NAME
+          echo "Published and Released $GITHUB_REF_NAME"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -42,6 +42,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: $GITHUB_REF
-          release_name: "Release $GITHUB_REF"
+          release_name: "Release $GITHUB_REF_NAME"
           draft: false
           prerelease: false
