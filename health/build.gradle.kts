@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.binaryCompatibilityValidator)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.mavenPublish)
+    `maven-publish`
 }
 
 kotlin {
@@ -87,5 +87,35 @@ apiValidation {
     @OptIn(kotlinx.validation.ExperimentalBCVApi::class)
     klib {
         enabled = true
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "io.dkluske.health"
+            artifactId = "healthKMP"
+            version = providers.gradleProperty("VERSION_NAME").get()
+
+            from(components["kotlin"])
+            pom {
+                name = "HealthKMP"
+                description = "A kotlin multiplatform library to connect to Apple HealthKit and Android Health"
+                developers {
+                    developer {
+                        id = "vitoksmile"
+                        name = "Viktor Mykhailiv"
+                    }
+                    developer {
+                        id = "dKluske"
+                        name = "Dominik Kluske"
+                    }
+                }
+                scm {
+                    connection = "scm:git:git://github.com/dkluske/HealthKMP.git"
+                    developerConnection = "scm:git:git://github.com/dkluske/HealthKMP.git"
+                }
+            }
+        }
     }
 }
