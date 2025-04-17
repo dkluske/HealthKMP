@@ -99,7 +99,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "io.dkluske.health"
-            artifactId = "healthKMP"
+            artifactId = "healthkmp"
             version = project.version.toString()
 
             from(components["kotlin"])
