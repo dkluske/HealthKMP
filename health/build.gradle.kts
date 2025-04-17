@@ -105,10 +105,12 @@ publishing {
                     developer {
                         id = "vitoksmile"
                         name = "Viktor Mykhailiv"
+                        description = "Original work"
                     }
                     developer {
                         id = "dKluske"
                         name = "Dominik Kluske"
+                        description = "Developer of this fork"
                     }
                 }
                 scm {
