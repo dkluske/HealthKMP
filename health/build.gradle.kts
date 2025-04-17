@@ -100,7 +100,7 @@ publishing {
             from(components["kotlin"])
             pom {
                 name = "HealthKMP"
-                description = "A kotlin multiplatform library to connect to Apple HealthKit and Android Health"
+                description = "A kotlin multiplatform library to connect to Apple HealthKit and Android Health\nOriginal work from vitoksmile/HealthKMP"
                 developers {
                     developer {
                         id = "vitoksmile"
