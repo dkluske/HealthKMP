@@ -91,6 +91,15 @@ apiValidation {
 }
 
 publishing {
+    repositories {
+        maven {
+            url = uri("https://maven.pkg.github.com/dkluske/HealthKMP")
+            credentials {
+                username = project.properties["gpr.user"] as? String ?: System.getenv("GITHUB_ACTOR")
+                password = project.properties["gpr.key"] as? String ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
     publications {
         create<MavenPublication>("maven") {
             groupId = "io.dkluske.health"
