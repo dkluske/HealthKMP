@@ -79,10 +79,6 @@ dependencies {
     debugImplementation(compose.uiTooling)
 }
 
-task("printVersionName") {
-    println(providers.gradleProperty("VERSION_NAME").get())
-}
-
 apiValidation {
     @OptIn(kotlinx.validation.ExperimentalBCVApi::class)
     klib {
