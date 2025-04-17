@@ -29,4 +29,3 @@ dependencyResolutionManagement {
 }
 
 include(":health")
-include(":sample:composeApp")
