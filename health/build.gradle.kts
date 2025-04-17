@@ -104,7 +104,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "io.dkluske.health"
             artifactId = "healthKMP"
-            version = providers.gradleProperty("VERSION_NAME").get()
+            version = project.version.toString()
 
             from(components["kotlin"])
             pom {
