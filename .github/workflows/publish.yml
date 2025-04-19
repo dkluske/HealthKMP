@@ -26,12 +26,12 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew health:build
 
       - name: Publish Library
         run: |
           echo "Publishing and Releasing $GITHUB_REF_NAME"
-          ./gradlew publish -Pversion=$GITHUB_REF_NAME
+          ./gradlew health:publish -Pversion=$GITHUB_REF_NAME
           echo "Published and Released $GITHUB_REF_NAME"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
