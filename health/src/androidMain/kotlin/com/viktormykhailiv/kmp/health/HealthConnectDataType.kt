@@ -1,11 +1,13 @@
 package com.viktormykhailiv.kmp.health
 
 import androidx.health.connect.client.permission.HealthPermission
+import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
+import com.viktormykhailiv.kmp.health.HealthDataType.ActiveCalories
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
@@ -20,6 +22,8 @@ internal fun HealthDataType.toRecordType(): KClass<out Record> = when (this) {
     Steps -> StepsRecord::class
 
     Weight -> WeightRecord::class
+
+    ActiveCalories -> ActiveCaloriesBurnedRecord::class
 }
 
 /**

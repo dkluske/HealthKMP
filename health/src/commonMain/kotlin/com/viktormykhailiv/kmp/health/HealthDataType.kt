@@ -9,4 +9,6 @@ sealed interface HealthDataType {
     data object Steps : HealthDataType
 
     data object Weight : HealthDataType
+
+    data object ActiveCalories : HealthDataType
 }

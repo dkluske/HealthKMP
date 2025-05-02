@@ -14,6 +14,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import com.viktormykhailiv.kmp.health.HealthRecord
 import com.viktormykhailiv.kmp.health.groupByRecords
+import com.viktormykhailiv.kmp.health.records.ActiveCaloriesRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
@@ -78,6 +79,16 @@ internal fun List<DataPoint>.toHealthRecords(type: HealthDataType): List<HealthR
                     weight = Mass.kilograms(
                         dataPoint.getValue(Field.FIELD_WEIGHT).asFloat().toDouble()
                     ),
+                )
+            }
+        }
+
+        HealthDataType.ActiveCalories -> {
+            map { dataPoint ->
+                ActiveCaloriesRecord(
+                    startTime = dataPoint.startTime,
+                    endTime = dataPoint.endTime,
+                    total = dataPoint.getValue(Field.FIELD_CALORIES).asFloat().toDouble()
                 )
             }
         }
