@@ -10,5 +10,5 @@ sealed interface HealthDataType {
 
     data object Weight : HealthDataType
 
-    data object ActiveCalories : HealthDataType
+    data object ActiveCaloriesBurned : HealthDataType
 }

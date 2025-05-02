@@ -2,17 +2,17 @@
 
 package com.viktormykhailiv.kmp.health
 
-import com.viktormykhailiv.kmp.health.HealthDataType.ActiveCalories
+import com.viktormykhailiv.kmp.health.HealthDataType.ActiveCaloriesBurned
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
-import com.viktormykhailiv.kmp.health.aggregate.ActiveCaloriesAggregatedRecord
+import com.viktormykhailiv.kmp.health.aggregate.ActiveCaloriesBurnedAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.WeightAggregatedRecord
-import com.viktormykhailiv.kmp.health.records.ActiveCaloriesRecord
+import com.viktormykhailiv.kmp.health.records.ActiveCaloriesBurnedRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.StepsRecord
@@ -20,25 +20,25 @@ import com.viktormykhailiv.kmp.health.records.WeightRecord
 import kotlinx.datetime.Instant
 import kotlin.time.Duration
 
-suspend fun HealthManager.readActiveCalories(
+suspend fun HealthManager.readActiveCaloriesBurned(
     startTime: Instant,
     endTime: Instant,
-): Result<List<ActiveCaloriesRecord>> =
+): Result<List<ActiveCaloriesBurnedRecord>> =
     readData(
         startTime = startTime,
         endTime = endTime,
-        type = ActiveCalories
-    ).map { it.filterIsInstance<ActiveCaloriesRecord>() }
+        type = ActiveCaloriesBurned
+    ).map { it.filterIsInstance<ActiveCaloriesBurnedRecord>() }
 
-suspend fun HealthManager.aggregateActiveCalories(
+suspend fun HealthManager.aggregateActiveCaloriesBurned(
     startTime: Instant,
     endTime: Instant,
-): Result<ActiveCaloriesAggregatedRecord> =
+): Result<ActiveCaloriesBurnedAggregatedRecord> =
     aggregate(
         startTime = startTime,
         endTime = endTime,
-        type = ActiveCalories
-    ).mapCatching { it as ActiveCaloriesAggregatedRecord }
+        type = ActiveCaloriesBurned
+    ).mapCatching { it as ActiveCaloriesBurnedAggregatedRecord }
 
 suspend fun HealthManager.readHeartRate(
     startTime: Instant,

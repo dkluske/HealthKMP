@@ -3,7 +3,7 @@ package com.viktormykhailiv.kmp.health.legacy
 import com.google.android.gms.fitness.FitnessOptions
 import com.google.android.gms.fitness.data.DataType
 import com.viktormykhailiv.kmp.health.HealthDataType
-import com.viktormykhailiv.kmp.health.HealthDataType.ActiveCalories
+import com.viktormykhailiv.kmp.health.HealthDataType.ActiveCaloriesBurned
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
@@ -38,7 +38,7 @@ internal fun HealthDataType.toDataType(): DataType = when (this) {
 
     Weight -> DataType.TYPE_WEIGHT
 
-    ActiveCalories -> DataType.TYPE_CALORIES_EXPENDED
+    ActiveCaloriesBurned -> DataType.TYPE_CALORIES_EXPENDED
 }
 
 /**
