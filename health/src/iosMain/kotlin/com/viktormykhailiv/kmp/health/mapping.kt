@@ -1,5 +1,6 @@
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.records.ActiveCaloriesBurnedRecord
 import com.viktormykhailiv.kmp.health.records.HeartRateRecord
 import com.viktormykhailiv.kmp.health.records.SleepSessionRecord
 import com.viktormykhailiv.kmp.health.records.SleepStageType
@@ -22,10 +23,12 @@ import platform.HealthKit.HKQuantity
 import platform.HealthKit.HKQuantitySample
 import platform.HealthKit.HKQuantityType
 import platform.HealthKit.HKQuantityTypeIdentifier
+import platform.HealthKit.HKQuantityTypeIdentifierActiveEnergyBurned
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
 import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
 import platform.HealthKit.HKQuantityTypeIdentifierStepCount
 import platform.HealthKit.HKUnit
+import platform.HealthKit.calorieUnit
 import platform.HealthKit.countUnit
 import platform.HealthKit.minuteUnit
 import platform.HealthKit.poundUnit
@@ -102,6 +105,16 @@ internal fun HealthRecord.toHKObjects(): List<HKObject>? {
             endDate = record.time.toNSDate()
         }
 
+        is ActiveCaloriesBurnedRecord -> {
+            quantityTypeIdentifier = HKQuantityTypeIdentifierActiveEnergyBurned
+            quantity = HKQuantity.quantityWithUnit(
+                unit = HKUnit.calorieUnit(),
+                doubleValue = record.total
+            )
+            startDate = record.startTime.toNSDate()
+            endDate = record.endTime.toNSDate()
+        }
+
         else -> return null
     }
 
@@ -172,6 +185,16 @@ internal fun List<HKQuantitySample>.toHealthRecord(): List<HealthRecord> {
                 WeightRecord(
                     time = sample.startDate.toKotlinInstant(),
                     weight = Mass.pounds(sample.quantity.doubleValueForUnit(HKUnit.poundUnit())),
+                )
+            }
+        }
+
+        HKQuantityTypeIdentifierActiveEnergyBurned -> {
+            map { sample ->
+                ActiveCaloriesBurnedRecord(
+                    startTime = sample.startDate.toKotlinInstant(),
+                    endTime = sample.endDate.toKotlinInstant(),
+                    total = sample.quantity.doubleValueForUnit(HKUnit.calorieUnit())
                 )
             }
         }

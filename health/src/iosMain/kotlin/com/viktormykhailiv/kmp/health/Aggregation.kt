@@ -1,9 +1,11 @@
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.HealthDataType.ActiveCaloriesBurned
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
 import com.viktormykhailiv.kmp.health.HealthDataType.Weight
+import com.viktormykhailiv.kmp.health.aggregate.ActiveCaloriesBurnedAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.HeartRateAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.SleepAggregatedRecord
 import com.viktormykhailiv.kmp.health.aggregate.StepsAggregatedRecord
@@ -13,6 +15,7 @@ import com.viktormykhailiv.kmp.health.units.Mass
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toKotlinInstant
 import platform.HealthKit.HKQuantityType
+import platform.HealthKit.HKQuantityTypeIdentifierActiveEnergyBurned
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
 import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
 import platform.HealthKit.HKQuantityTypeIdentifierStepCount
@@ -23,6 +26,7 @@ import platform.HealthKit.HKStatisticsOptionDiscreteMax
 import platform.HealthKit.HKStatisticsOptionDiscreteMin
 import platform.HealthKit.HKStatisticsOptions
 import platform.HealthKit.HKUnit
+import platform.HealthKit.calorieUnit
 import platform.HealthKit.countUnit
 import platform.HealthKit.poundUnit
 import kotlin.time.Duration.Companion.seconds
@@ -39,6 +43,9 @@ internal fun HealthDataType.toHKQuantityType(): HKQuantityType? = when (this) {
 
     Weight ->
         HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)
+
+    ActiveCaloriesBurned ->
+        HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierActiveEnergyBurned)
 }
 
 /**
@@ -56,6 +63,9 @@ internal fun HealthDataType.toHKStatisticOptions(): HKStatisticsOptions = when (
 
     Weight ->
         HKStatisticsOptionDiscreteAverage or HKStatisticsOptionDiscreteMin or HKStatisticsOptionDiscreteMax
+
+    ActiveCaloriesBurned ->
+        HKStatisticsOptionCumulativeSum
 }
 
 /**
@@ -88,6 +98,14 @@ internal fun HKStatistics.toHealthAggregatedRecord(): HealthAggregatedRecord? {
                 avg = Mass.pounds(averageQuantity()?.doubleValueForUnit(HKUnit.poundUnit()) ?: 0.0),
                 min = Mass.pounds(minimumQuantity()?.doubleValueForUnit(HKUnit.poundUnit()) ?: 0.0),
                 max = Mass.pounds(maximumQuantity()?.doubleValueForUnit(HKUnit.poundUnit()) ?: 0.0),
+            )
+        }
+
+        HKQuantityTypeIdentifierActiveEnergyBurned -> {
+            ActiveCaloriesBurnedAggregatedRecord(
+                startTime = startDate.toKotlinInstant(),
+                endTime = endDate.toKotlinInstant(),
+                total = sumQuantity()?.doubleValueForUnit(HKUnit.calorieUnit()) ?: 0.0
             )
         }
 

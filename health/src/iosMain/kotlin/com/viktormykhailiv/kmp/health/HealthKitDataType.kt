@@ -1,5 +1,6 @@
 package com.viktormykhailiv.kmp.health
 
+import com.viktormykhailiv.kmp.health.HealthDataType.ActiveCaloriesBurned
 import com.viktormykhailiv.kmp.health.HealthDataType.HeartRate
 import com.viktormykhailiv.kmp.health.HealthDataType.Sleep
 import com.viktormykhailiv.kmp.health.HealthDataType.Steps
@@ -7,6 +8,7 @@ import com.viktormykhailiv.kmp.health.HealthDataType.Weight
 import platform.HealthKit.HKCategoryType
 import platform.HealthKit.HKCategoryTypeIdentifierSleepAnalysis
 import platform.HealthKit.HKQuantityType
+import platform.HealthKit.HKQuantityTypeIdentifierActiveEnergyBurned
 import platform.HealthKit.HKQuantityTypeIdentifierBodyMass
 import platform.HealthKit.HKQuantityTypeIdentifierHeartRate
 import platform.HealthKit.HKQuantityTypeIdentifierStepCount
@@ -24,4 +26,7 @@ internal fun HealthDataType.toHKSampleType(): HKSampleType? = when (this) {
 
     Weight ->
         HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)
+
+    ActiveCaloriesBurned ->
+        HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierActiveEnergyBurned)
 }
