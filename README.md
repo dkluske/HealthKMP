@@ -26,6 +26,7 @@ Note that for Android, the target phone **needs** to have [Google Fit](https://w
 - Sleep
 - Steps
 - Weight
+- active calories burned
 
 ## Requesting permission
 
