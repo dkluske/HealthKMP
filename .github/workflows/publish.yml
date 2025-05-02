@@ -25,6 +25,9 @@ jobs:
       - name: Grant Permission to Execute Gradle
         run: chmod +x gradlew
 
+      - name: Run Api Dump
+        run: ./gradlew health:apiDump
+
       - name: Build with Gradle
         run: ./gradlew health:build
 
