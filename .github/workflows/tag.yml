@@ -1,0 +1,35 @@
+name: Create Patch Release Tag
+on:
+  workflow-dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+
+permissions:
+  contents: write
+
+jobs:
+  createTag:
+    name: Create Tag
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create new tag
+        run: |
+          echo "Starting to fetch latest tag"
+          NEW_TAG=$(curl -s https://api.github.com/repos/dkluske/HealthKMP/releases/latest | grep -oP '(?<="tag_name": ")[^"]*' | sed -E 's/([0-9]+\.[0-9]+\.)([0-9]+)/echo "\1$((\2+1))"/e')
+          echo "New incremented patch tag: $NEW_TAG"
+          git tag $NEW_TAG
+          git push origin --tags
+          echo "Incrementing latest tag (PATCH) finished!"
+
