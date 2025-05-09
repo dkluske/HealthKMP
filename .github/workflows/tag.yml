@@ -1,16 +1,6 @@
 name: Create Patch Release Tag
 on:
-  workflow-dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-        - info
-        - warning
-        - debug
+  workflow_dispatch:
 
 permissions:
   contents: write
