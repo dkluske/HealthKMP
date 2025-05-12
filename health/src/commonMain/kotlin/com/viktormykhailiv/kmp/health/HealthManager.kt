@@ -20,11 +20,11 @@ interface HealthManager {
 
     suspend fun revokeAuthorization(): Result<Unit>
 
-    suspend fun <H : HealthRecord> readData(
+    suspend fun readData(
         startTime: Instant,
         endTime: Instant,
         type: HealthDataType,
-    ): Result<List<H>>
+    ): Result<List<HealthRecord>>
 
     suspend fun writeData(
         records: List<HealthRecord>,
